@@ -56,12 +56,13 @@ module.exports = {
     rules: [
       {
         test: /\.[jt]s$/,
+        include:[path.join(__dirname,'projects')],
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: { cacheDirectory: true },
       },
       {
-        test: /projects\/.+\.html$/,
+        test: /\.html$/,
         use: [{ loader: './scripts/html-inject-loader.js' }, { loader: 'html-loader' }],
       },
       {
