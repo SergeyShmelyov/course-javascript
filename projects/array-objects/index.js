@@ -10,8 +10,8 @@
    forEach([1, 2, 3], (el) => console.log(el)); // выведет каждый элемент массива
  */
 function forEach(array, fn) {
-  for (const[i,el] of array.entries() ){
-    fn(el,i,array);
+  for (const[i, el] of array.entries() ){
+    fn(el, i, array);
   }
 }
 
@@ -27,8 +27,9 @@ function forEach(array, fn) {
  */
 function map(array, fn) {
   const newArray=[];
-  for (const [i,el]of array.entries()){
-    newArray.push(fn(el, i,array));
+  for (const [i, el] of array.entries()){
+
+    newArray.push(fn (el, i, array));
   }
   return newArray;
 }
@@ -53,6 +54,7 @@ function reduce(array, fn, initial) {
 
   };
   for (let i=startIndex; i<array.length; i++){
+    
     all= fn(all, array[i], i, array);
   };
   return all;

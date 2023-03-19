@@ -22,13 +22,16 @@
  */
 function isAllTrue(array, fn) {
   if(!Array.isArray(array)||array.length===0){
+
     throw new Error('empty array')
   }
   if (typeof fn !== 'function'){
+
     throw new Error('fn is not a function');
   }
 
 for (const el of array){
+
   if(!fn(el)){
     return false;
   }
@@ -59,13 +62,16 @@ return true;
  */
 function isSomeTrue(array, fn) {
   if(!Array.isArray(array)||array.length===0){
+
     throw new Error('empty array')
   }
   if (typeof fn !== 'function'){
+
     throw new Error('fn is not a function');
   }
 
 for (const el of array){
+
   if(fn(el)){
     return true;
   }
@@ -86,6 +92,7 @@ return false;
      для проверки на функцию вам может помочь оператор typeof
  */
 function returnBadArguments(fn, ...args) {
+
 if (typeof fn !=='function'){
   throw new Error ('fn is not a function');
 }
@@ -135,15 +142,18 @@ return{
   sum(...args){
     return args.reduce((all,current)=>all + current, number);
   },
+
   dif(...args){
     return args.reduce((all,current)=>all - current, number);
   },
+
   div(...args){
     if(args.some(a=> a ===0)){
       throw new Error ('division by 0');
     }
     return args.reduce((all,current)=>all / current, number);
   },
+  
   mul(...args){
     return args.reduce((all,current)=>all * current, number);
   },
