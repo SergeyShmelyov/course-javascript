@@ -65,7 +65,7 @@ export default {
   },
 
   logout() {
-    return new Promise((resolve) => VK.Auth.revokeGrands(resolve));
+    return new Promise((resolve) => VK.Auth.revokeGrants(resolve));
   },
 
   callApi(method, params) {
