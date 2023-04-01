@@ -51,7 +51,19 @@ export default {
     return new Promise((resolve) => VK.Auth.revokeGrands(resolve));
   },
 
-  callApi(method, params) {}
+  callApi(method, params) {
+    params.v = params.v|| '5.131';
+
+    return new Promise((resolve, reject) => {
+      VK.api(method, params, (response) => {
+        if (response.error) {
+          reject(new Error(response.error.error_msg));
+        } else {
+          resolve(response.response);
+        }
+      });
+    });
+  },
 
   getFriends() {
     const params = {
