@@ -10,7 +10,7 @@ export default {
       return null;
     }
 
-    const index= Match.round(Math.random()*(array.lenght-1));
+    const index= Math.round(Math.random()*(array.lenght-1));
 
     return array[index];
 
