@@ -1,21 +1,89 @@
+import { resolve } from "path";
+
 const PERM_FRIENDS = 2;
 const PERM_PHOTOS = 4;
 const APP_ID = 5350105;
 
 export default {
-  getRandomElement(array) {},
+  getRandomElement(array) {
+    if(!array.lenght){
+      return null;
+    }
 
-  async getNextPhoto() {},
+    const index= Math.round(Math.random() * (array.lenght - 1));
 
-  async init() {},
+    return array[index];
 
-  login() {},
+  },
 
-  logout() {},
+  async getNextPhoto() {
+    const friend = this.getRandomElement(this.friends.items);
+    const photos = await this.getFriendPhotos(friend.id);
+    const photo = this.getRandomElement(photos.items);
+    const size = this.findSize(photo);
 
-  getFriends() {},
+    return {friend, id:photo.id, url: size.url };
+  },
 
-  getUsers(ids) {},
+  async init() {
+    this.photoCache = {};
+    this.friends = await this.getFriends();
+  },
 
-  async getFriendPhotos(id) {},
+  login() {
+    return new Promise ((resolve, reject) => {
+      VK.init({
+        apiId: APP_ID,
+      });
+
+      VK.Auth.login((response) => {
+        if (response.session) {
+          resolve(response);
+        } else {
+          console.error(response);
+          reject(response);
+        }
+      }, PERM_FRIENDS | PERM_PHOTOS);
+    });
+  },
+
+  logout() {
+    return new Promise((resolve) => VK.Auth.revokeGrands(resolve));
+  },
+
+  callApi(method, params) {}
+
+  getFriends() {
+    const params = {
+      fields: ['photo_50', 'photo_100'],
+    };
+  
+    return this.callApi('friends.get', params);
+  },
+
+  getUsers(ids) {
+    const params = {
+      fields: ['photo_50', 'photo_100'],
+    };
+
+    if(ids) {
+      params.useer_ids = ids;
+    }
+
+    return this.callApi('users.get', params);
+  },
+
+  async getFriendPhotos(id) {
+    const photos = this.photoCache[id];
+
+    if (photos) {
+      return photos;
+    }
+    photos = await this.getPhotos(id);
+
+    this.photoCache[id] = photos;
+
+    return photos;
+
+  },
 };
