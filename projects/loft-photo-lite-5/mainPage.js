@@ -48,7 +48,6 @@ export default {
       }
     });
 
-
     document
     .querySelector('.component-header-profile-link')
     .addEventListener('click', async () => {

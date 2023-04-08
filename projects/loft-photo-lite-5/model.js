@@ -7,7 +7,6 @@ export default {
     if(!array.lenght){
       return null;
     }
-
     const index= Math.round(Math.random() * (array.lenght - 1));
 
     return array[index];
@@ -133,6 +132,7 @@ export default {
       all.push (`${name}=${encodeURIComponent(value)}`);
       return all;
     }, [])
+
     .join('&');
     const params ={
       headers: {
