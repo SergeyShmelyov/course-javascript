@@ -14,6 +14,7 @@ export default {
   },
 
   async getNextPhoto() {
+
     const friend = this.getRandomElement(this.friends.items);
     const photos = await this.getFriendPhotos(friend.id);
     const photo = this.getRandomElement(photos.items);
@@ -30,15 +31,14 @@ export default {
         if (current.width > biggest.width) {
           return current;
         }
-
         return biggest;
       }, photo.sizes[0]);
     }
-
     return size;
   },
 
   async init() {
+    
     this.photoCache = {};
     this.friends = await this.getFriends();
     [this.me] = await this.getUsers();
